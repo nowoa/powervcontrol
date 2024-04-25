@@ -38,6 +38,7 @@ public class ArrowDetection : MonoBehaviour
 
     private void Update()
     {
+        
         if(Input.GetKeyDown(KeyCode.LeftArrow) && button==1) PointAssignment();
         
         if(Input.GetKeyDown(KeyCode.DownArrow) && button==2) PointAssignment();
@@ -45,6 +46,7 @@ public class ArrowDetection : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.UpArrow) && button==3) PointAssignment();
         
         if(Input.GetKeyDown(KeyCode.RightArrow) && button==4) PointAssignment();
+        
         
     }
     
@@ -61,7 +63,7 @@ public class ArrowDetection : MonoBehaviour
 
         else
         {
-            _scoreCalculator.lastValue = -1;
+            _scoreCalculator.lastValue = -2;
             _scoreCalculator.ScoreUpdate();
             /*Debug.Log("wrong");*/
         }
