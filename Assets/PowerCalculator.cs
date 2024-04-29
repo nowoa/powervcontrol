@@ -19,10 +19,12 @@ public class PowerCalculator : MonoBehaviour
     public float bottomBuffer;
 
     public RuleManager ruleManager;
+
+    [HideInInspector]public float powerScore;
     // Start is called before the first frame update
     void Start()
     {
-        
+        powerScore = 50;
         increase.SetActive(false);
         decrease.SetActive(false);
     }
@@ -34,12 +36,15 @@ public class PowerCalculator : MonoBehaviour
         {
             decrease.SetActive(true);
             increase.SetActive(false);
+            powerScore -= ruleManager.loseRate;
         }
         else
         {
             increase.SetActive(true);
             decrease.SetActive(false);
+            powerScore += ruleManager.gainRate;
         }
-        
+
+        /*Debug.Log(powerScore +" " + this.gameObject.name);*/
     }
 }

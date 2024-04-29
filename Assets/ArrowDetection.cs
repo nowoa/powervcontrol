@@ -71,7 +71,7 @@ public class ArrowDetection : MonoBehaviour
 
         else
         {
-            scoreCalculator.lastValue = -2;
+            scoreCalculator.lastValue = (int)-1.5;
             scoreCalculator.ScoreUpdate();
             /*Debug.Log("wrong");*/
         }

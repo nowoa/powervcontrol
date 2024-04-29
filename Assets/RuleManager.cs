@@ -8,6 +8,14 @@ using Random = UnityEngine.Random;
 public class RuleManager : MonoBehaviour
 {
     [HideInInspector] public float idealRange;
+    public float gain;
+    public float lose;
+    [HideInInspector]public float gainRate;
+    [HideInInspector]public float loseRate;
+    private float _top;
+    private float _bottom;
+    
+    
     private int _random;
 
 
@@ -18,13 +26,11 @@ public class RuleManager : MonoBehaviour
 
     public masterScore masterScore;
 
-    private float _top;
-    private float _bottom;
     
     
     
 //RULES
-    [HideInInspector] public bool perfectTiming, crushEnemy, stopInput, easyArrows;
+    [HideInInspector] public bool perfectTiming, crushEnemy, stopInput, easyArrows, randomArrows;
     
     
     
@@ -34,24 +40,29 @@ public class RuleManager : MonoBehaviour
     {
         _top = powerCalculator.topBuffer;
         _bottom = powerCalculator.bottomBuffer;
+
+        gainRate=gain * Time.deltaTime;
+        loseRate=lose * Time.deltaTime;
     }
 
     private void OnEnable()
     {
-        InvokeRepeating(nameof(setRule), 0,15f);
+        InvokeRepeating(nameof(SetRule), 0,15f);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         UpdateIdealRange();
         powerCalculator.topBuffer = _top;
         powerCalculator.bottomBuffer = _bottom;
+        
+        
     }
-    
-    void setRule()
+
+    private void SetRule()
     {
-        perfectTiming = crushEnemy = stopInput =easyArrows = false;
+        perfectTiming = crushEnemy = stopInput =easyArrows =randomArrows= false;
         _random = Random.Range(1, 3);
 
         
@@ -115,7 +126,9 @@ public class RuleManager : MonoBehaviour
                 // don't go past the mark you aimed for in victory, learn when to stop -> any input during this rule lowers score, this rule should last less long? 
                 break;
             case 9:
-                // plan all the way to the end -> arrows gradually become invisible
+                randomArrows = true;
+                // plan all the way to the end -> arrows have a random direction
+                break;
             default:
                 //no rule
                 break;
