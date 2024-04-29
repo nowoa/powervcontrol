@@ -43,7 +43,7 @@ public class PowerSlider : MonoBehaviour
 
         powerMeter.transform.position = new Vector3(position,powerMeter.transform.position.y, powerMeter.transform.position.z);
         
-        Debug.Log(powerRatio);
+        /*Debug.Log(powerRatio);*/
 
     }
 }

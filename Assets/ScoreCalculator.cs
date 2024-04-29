@@ -54,9 +54,11 @@ public class ScoreCalculator : MonoBehaviour
         _currentPos = performanceMeter.transform.position.y+1;*/
         /*_targetPos = (_averageFloat)+1;*/
         currentPos = Mathf.Lerp(currentPos, _sliderValue, speed*Time.deltaTime);
+        
         var position = performanceMeter.transform.position;
         position = new Vector3(position.x, currentPos, position.z);
         performanceMeter.transform.position = position;
+        
 
         /*Debug.Log(_targetPos + " " + _currentPos + " " + performanceMeter.transform.position.y);*/
     }
@@ -79,10 +81,10 @@ public class ScoreCalculator : MonoBehaviour
         /*Debug.Log(_averageFloat);*/
         
         var t = _averageFloat / 2 + 0.5f;
-        if (t <= -1)
+        /*if (t <= -1)
         {
             t = -1;
-        }
+        }*/
 
         _sliderValue = Mathf.Lerp(sliderBottom.position.y, sliderTop.position.y, t);
 

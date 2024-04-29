@@ -14,11 +14,11 @@ public class RuleManager : MonoBehaviour
     [HideInInspector]public float loseRate;
     private float _top;
     private float _bottom;
-    
-    
+
+    [HideInInspector]public string ruleText;
     private int _random;
 
-
+    public textDisplay textdisplay;
     public PowerCalculator powerCalculator;
 
     public ScoreCalculator playerScore;
@@ -47,7 +47,7 @@ public class RuleManager : MonoBehaviour
 
     private void OnEnable()
     {
-        InvokeRepeating(nameof(SetRule), 0,15f);
+        InvokeRepeating(nameof(SetRule), 0,5f);
     }
 
     // Update is called once per frame
@@ -63,7 +63,7 @@ public class RuleManager : MonoBehaviour
     private void SetRule()
     {
         perfectTiming = crushEnemy = stopInput =easyArrows =randomArrows= false;
-        _random = Random.Range(1, 3);
+        _random = Random.Range(1, 2);
 
         
         
@@ -77,6 +77,12 @@ public class RuleManager : MonoBehaviour
                 idealRange = masterScore.masterScoreFloat;
                 _top = 0f;
                 _bottom = 0.2f;
+
+                ruleText = @"
+<b>NEVER OUTSHINE THE MASTER</b>
+Make sure to stay below the master's performance level, but don't stray too far behind!
+";
+                textdisplay.UpdateText();
                 //never outshine the master
                 break;
             case 2:
@@ -84,12 +90,22 @@ public class RuleManager : MonoBehaviour
                 _top = 1f;
                 _bottom = 1f;
                 crushEnemy = true;
+                
+                ruleText = @"
+<b>CRUSH YOUR ENEMY TOTALLY</b>
+Every button you press decreases your opponents power, so let loose!
+";
                 //crush your enemy totally -> every input deducts x power from your opponent, keyboardsmash (player gains no points)
                 break;
             case 3:
                 idealRange = -0.5f;
                 _top = 0.2f;
                 _bottom = 0.2f;
+                
+                ruleText = @"
+<b>PLAY A SUCKER TO CATCH A SUCKER</b>
+Play dumb to win big, less is more when it comes to performance level.
+";
                 // play a sucker to catch a sucker -> points are reversed (bad is good)
                 break;
             case 4:
@@ -97,6 +113,12 @@ public class RuleManager : MonoBehaviour
                 _top = 1f;
                 _bottom = 1f;
                 easyArrows = true;
+                
+                
+                ruleText = @"
+<b>MAKE YOUR ACCOMPLISHMENTS SEEM EFFORTLESS</b>
+Stay ahead of your opponent and also close your eyes lol
+";
                 // make your accomplishments seem effortless -> arrows are spawned only half as often
                 break;
             case 5:
@@ -104,18 +126,33 @@ public class RuleManager : MonoBehaviour
                 _top = 1f;
                 _bottom = 1f;
                 perfectTiming = true;
+                
+                ruleText = @"
+<b>MASTER THE ART OF TIMING</b>
+I think this one is pretty obvious (play perfectly)
+";
                 // master the art of timing -> maybe it should deduct power for every wrong input
                 break;
             case 6:
                 idealRange = opponentScore.currentPos;
                 _top = 0.1f;
                 _bottom = 0.1f;
+                
+                ruleText = @"
+<b>INFURIATE WITH THE MIRROR EFFECT</b>
+Copy your opponents moves as closely as possible.
+";
                 // disarm and infuriate with the mirror effect
                 break;
             case 7:
                 idealRange = playerScore.sliderTop.position.y - 0.05f;
                 _top = 0f;
                 _bottom = 0.2f;
+                
+                ruleText = @"
+<b>NEVER APPEAR TOO PERFECT</b>
+Aim for near-perfection!
+";
                 // never appear too perfect
                 break;
             case 8:
@@ -123,10 +160,20 @@ public class RuleManager : MonoBehaviour
                 _top = 1f;
                 _bottom = 1f;
                 stopInput = true;
+                
+                ruleText = @"
+<b>LEARN WHEN TO STOP</b>
+...it's now.
+";
                 // don't go past the mark you aimed for in victory, learn when to stop -> any input during this rule lowers score, this rule should last less long? 
                 break;
             case 9:
                 randomArrows = true;
+                
+                ruleText = @"
+<b>PLAN ALL THE WAY TO THE END</b>
+I'm too tired to come up with flavortext, the arrows disappear lol
+";
                 // plan all the way to the end -> arrows have a random direction
                 break;
             default:
@@ -137,4 +184,6 @@ public class RuleManager : MonoBehaviour
         Debug.Log(idealRange);*/
 
     }
+
+    
 }
