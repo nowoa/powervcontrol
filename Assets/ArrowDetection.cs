@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
@@ -9,11 +10,12 @@ public class ArrowDetection : MonoBehaviour
     private bool _colliding;
     private GameObject _arrow;
     public int button;
-    private ScoreCalculator _scoreCalculator;
+
+    public ScoreCalculator scoreCalculator;
     // Start is called before the first frame update
     void Start()
     {
-        _scoreCalculator = FindObjectOfType<ScoreCalculator>();
+        
     }
 
     // Update is called once per frame
@@ -32,20 +34,26 @@ public class ArrowDetection : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         _colliding = false;
-        _scoreCalculator.lastValue = 0;
-        _scoreCalculator.ScoreUpdate();
+        scoreCalculator.lastValue = 0;
+        scoreCalculator.ScoreUpdate();
     }
 
     private void Update()
     {
         
-        if(Input.GetKeyDown(KeyCode.LeftArrow) && button==1) PointAssignment();
+        if(Input.GetKeyDown(KeyCode.A) && button==1) PointAssignment();
         
-        if(Input.GetKeyDown(KeyCode.DownArrow) && button==2) PointAssignment();
+        if(Input.GetKeyDown(KeyCode.S) && button==2) PointAssignment();
         
-        if(Input.GetKeyDown(KeyCode.UpArrow) && button==3) PointAssignment();
+        if(Input.GetKeyDown(KeyCode.W) && button==3) PointAssignment();
         
-        if(Input.GetKeyDown(KeyCode.RightArrow) && button==4) PointAssignment();
+        if(Input.GetKeyDown(KeyCode.D) && button==4) PointAssignment();
+        
+        if(Input.GetKeyDown(KeyCode.LeftArrow)&&button==5) PointAssignment();
+        
+        if(Input.GetKeyDown(KeyCode.DownArrow)&&button==6)PointAssignment();
+        if(Input.GetKeyDown(KeyCode.UpArrow)&&button==7)PointAssignment();
+        if(Input.GetKeyDown(KeyCode.RightArrow)&&button==8)PointAssignment();
         
         
     }
@@ -56,15 +64,15 @@ public class ArrowDetection : MonoBehaviour
         {/*
             Debug.Log("correct");*/
             Destroy(_arrow);
-            _scoreCalculator.lastValue = 1;
-            _scoreCalculator.ScoreUpdate();
+            scoreCalculator.lastValue = 1;
+            scoreCalculator.ScoreUpdate();
             _colliding = false;
         }
 
         else
         {
-            _scoreCalculator.lastValue = -2;
-            _scoreCalculator.ScoreUpdate();
+            scoreCalculator.lastValue = -2;
+            scoreCalculator.ScoreUpdate();
             /*Debug.Log("wrong");*/
         }
     }

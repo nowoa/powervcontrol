@@ -12,7 +12,7 @@ public class ScoreCalculator : MonoBehaviour
     private Queue<int> _scoreValues = new Queue<int>();
     public int valueAmount = 5;
     public GameObject performanceMeter;
-    private float _currentPos;
+    public float currentPos;
     private float _targetPos;
     public float speed = 10;
     private float _speed;
@@ -36,7 +36,7 @@ public class ScoreCalculator : MonoBehaviour
         _speed = 1 / speed;
         _targetPos = 0.5f;
         _sliderValue = -0.5f;
-        _currentPos = -0.5f;
+        currentPos = -0.5f;
 
 
 
@@ -53,10 +53,10 @@ public class ScoreCalculator : MonoBehaviour
         /*
         _currentPos = performanceMeter.transform.position.y+1;*/
         /*_targetPos = (_averageFloat)+1;*/
-        _currentPos = Mathf.Lerp(_currentPos, _sliderValue, speed*Time.deltaTime);
-        performanceMeter.transform.position = new Vector3(performanceMeter.transform.position.x, _currentPos, performanceMeter.transform.position.z);
+        currentPos = Mathf.Lerp(currentPos, _sliderValue, speed*Time.deltaTime);
+        performanceMeter.transform.position = new Vector3(performanceMeter.transform.position.x, currentPos, performanceMeter.transform.position.z);
         
-        Debug.Log(_targetPos + " " + _currentPos + " " + performanceMeter.transform.position.y);
+        /*Debug.Log(_targetPos + " " + _currentPos + " " + performanceMeter.transform.position.y);*/
     }
 
     public void ScoreUpdate()

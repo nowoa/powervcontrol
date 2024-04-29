@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PowerCalculator : MonoBehaviour
 {
-    private RuleManager _ruleManager;
+    
 
     public GameObject increase;
 
@@ -17,10 +17,12 @@ public class PowerCalculator : MonoBehaviour
     public float topBuffer;
 
     public float bottomBuffer;
+
+    public RuleManager ruleManager;
     // Start is called before the first frame update
     void Start()
     {
-        _ruleManager = FindObjectOfType<RuleManager>();
+        
         increase.SetActive(false);
         decrease.SetActive(false);
     }
@@ -28,7 +30,7 @@ public class PowerCalculator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerScore.localPosition.y > _ruleManager.idealRange + topBuffer || playerScore.localPosition.y < _ruleManager.idealRange - bottomBuffer)
+        if (playerScore.localPosition.y > ruleManager.idealRange + topBuffer || playerScore.localPosition.y < ruleManager.idealRange - bottomBuffer)
         {
             decrease.SetActive(true);
             increase.SetActive(false);

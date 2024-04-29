@@ -10,14 +10,30 @@ public class RuleManager : MonoBehaviour
     [HideInInspector] public float idealRange;
     private int _random;
 
-    private masterScore _masterScore;
 
-    private PowerCalculator _powerCalculator;
+    public PowerCalculator powerCalculator;
+
+    public ScoreCalculator playerScore;
+    public ScoreCalculator opponentScore;
+
+    public masterScore masterScore;
+
+    private float _top;
+    private float _bottom;
+    
+    
+    
+//RULES
+    [HideInInspector] public bool perfectTiming, crushEnemy, stopInput, easyArrows;
+    
+    
+    
+    
     // Start is called before the first frame update
     void Start()
     {
-        _powerCalculator = FindObjectOfType<PowerCalculator>();
-        _masterScore = FindObjectOfType<masterScore>();
+        _top = powerCalculator.topBuffer;
+        _bottom = powerCalculator.bottomBuffer;
     }
 
     private void OnEnable()
@@ -28,57 +44,78 @@ public class RuleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        updateIdealRange();
+        UpdateIdealRange();
+        powerCalculator.topBuffer = _top;
+        powerCalculator.bottomBuffer = _bottom;
     }
     
     void setRule()
     {
+        perfectTiming = crushEnemy = stopInput =easyArrows = false;
         _random = Random.Range(1, 3);
 
         
         
     }
     
-    void updateIdealRange()
+    void UpdateIdealRange()
     {
         switch (_random)
         {
             case 1:
-                idealRange = _masterScore.masterScoreFloat;
-                _powerCalculator.topBuffer = 0f;
-                _powerCalculator.bottomBuffer = 0.2f;
+                idealRange = masterScore.masterScoreFloat;
+                _top = 0f;
+                _bottom = 0.2f;
                 //never outshine the master
                 break;
             case 2:
                 idealRange = 0f;
-                _powerCalculator.topBuffer = 0.1f;
-                _powerCalculator.bottomBuffer = 0.1f;
-                //crush your enemy totally
+                _top = 1f;
+                _bottom = 1f;
+                crushEnemy = true;
+                //crush your enemy totally -> every input deducts x power from your opponent, keyboardsmash (player gains no points)
                 break;
             case 3:
-                idealRange = 0.3f;
-                // play a sucker to catch a sucker
+                idealRange = -0.5f;
+                _top = 0.2f;
+                _bottom = 0.2f;
+                // play a sucker to catch a sucker -> points are reversed (bad is good)
                 break;
             case 4:
-                idealRange = 0.4f;
-                // make your accomplishments seem effortless
+                idealRange = 0f;
+                _top = 1f;
+                _bottom = 1f;
+                easyArrows = true;
+                // make your accomplishments seem effortless -> arrows are spawned only half as often
                 break;
             case 5:
-                idealRange = 0.5f;
-                // master the art of timing
+                idealRange = playerScore.sliderTop.position.y;
+                _top = 1f;
+                _bottom = 1f;
+                perfectTiming = true;
+                // master the art of timing -> maybe it should deduct power for every wrong input
                 break;
             case 6:
-                idealRange = 0.6f;
+                idealRange = opponentScore.currentPos;
+                _top = 0.1f;
+                _bottom = 0.1f;
                 // disarm and infuriate with the mirror effect
                 break;
             case 7:
-                idealRange = 0.7f;
+                idealRange = playerScore.sliderTop.position.y - 0.05f;
+                _top = 0f;
+                _bottom = 0.2f;
                 // never appear too perfect
                 break;
             case 8:
-                idealRange = 0.8f;
-                // don't go past the mark you aimed for in victory, learn when to stop
+                idealRange = 0f;
+                _top = 1f;
+                _bottom = 1f;
+                stopInput = true;
+                // don't go past the mark you aimed for in victory, learn when to stop -> any input during this rule lowers score, this rule should last less long? 
                 break;
+            case 9:
+                // plan all the way to the end -> arrows gradually become invisible
             default:
                 //no rule
                 break;
