@@ -10,6 +10,8 @@ public class ArrowDetection : MonoBehaviour
     private bool _colliding;
     private GameObject _arrow;
     public int button;
+    [HideInInspector]public bool correct;
+    [HideInInspector]public bool wrong;
 
     public ScoreCalculator scoreCalculator;
     // Start is called before the first frame update
@@ -40,7 +42,7 @@ public class ArrowDetection : MonoBehaviour
 
     private void Update()
     {
-        
+        correct = wrong = false;
         if(Input.GetKeyDown(KeyCode.A) && button==1) PointAssignment();
         
         if(Input.GetKeyDown(KeyCode.S) && button==2) PointAssignment();
@@ -67,13 +69,15 @@ public class ArrowDetection : MonoBehaviour
             scoreCalculator.lastValue = 1;
             scoreCalculator.ScoreUpdate();
             _colliding = false;
+            correct = true;
         }
 
         else
         {
-            scoreCalculator.lastValue = -1;
+            scoreCalculator.lastValue = -2;
             scoreCalculator.ScoreUpdate();
             /*Debug.Log("wrong");*/
+            wrong = true;
         }
     }
     

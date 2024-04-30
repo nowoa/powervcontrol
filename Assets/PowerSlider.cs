@@ -22,14 +22,14 @@ public class PowerSlider : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sliderLeftPos = sliderLeft.position.x;
-        sliderRightPos = sliderRight.position.x;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+        sliderLeftPos = sliderLeft.position.x;
+        sliderRightPos = sliderRight.position.x;
         powerLeft = playerLeft.powerScore;
         powerRight = playerRight.powerScore;
         UpdateScore();

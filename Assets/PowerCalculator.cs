@@ -20,6 +20,8 @@ public class PowerCalculator : MonoBehaviour
 
     public RuleManager ruleManager;
 
+    public ScoreCalculator scoreCalculator;
+
     [HideInInspector]public float powerScore;
     // Start is called before the first frame update
     void Start()
@@ -34,15 +36,41 @@ public class PowerCalculator : MonoBehaviour
     {
         if (playerScore.localPosition.y > ruleManager.idealRange + topBuffer || playerScore.localPosition.y < ruleManager.idealRange - bottomBuffer)
         {
-            decrease.SetActive(true);
-            increase.SetActive(false);
-            powerScore -= ruleManager.loseRate;
+            if (!ruleManager.perfectTiming)
+            {
+                
+                decrease.SetActive(true);
+                increase.SetActive(false);
+                
+                powerScore -= ruleManager.loseRate;
+            }
         }
         else
         {
-            increase.SetActive(true);
-            decrease.SetActive(false);
-            powerScore += ruleManager.gainRate;
+            if(!ruleManager.perfectTiming)
+            {
+                
+                increase.SetActive(true);
+                decrease.SetActive(false);
+                powerScore += ruleManager.gainRate;
+            }
+        }
+        
+        if (ruleManager.perfectTiming)
+        {
+            
+            if (scoreCalculator.lastValue == 1)
+            {
+                powerScore += 1;
+            }
+            else if(scoreCalculator.lastValue == 0)
+            {
+                powerScore -= 1;
+            }
+            else if(scoreCalculator.lastValue==-2)
+            {
+                powerScore -= 2;
+            }
         }
 
         /*Debug.Log(powerScore +" " + this.gameObject.name);*/

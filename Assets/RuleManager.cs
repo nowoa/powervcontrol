@@ -47,7 +47,7 @@ public class RuleManager : MonoBehaviour
 
     private void OnEnable()
     {
-        InvokeRepeating(nameof(SetRule), 0,5f);
+        InvokeRepeating(nameof(SetRule), 0,15f);
     }
 
     // Update is called once per frame
@@ -63,7 +63,7 @@ public class RuleManager : MonoBehaviour
     private void SetRule()
     {
         perfectTiming = crushEnemy = stopInput =easyArrows =randomArrows= false;
-        _random = Random.Range(1, 2);
+        _random = Random.Range(1,10 );
 
         
         
@@ -83,7 +83,7 @@ public class RuleManager : MonoBehaviour
 Make sure to stay below the master's performance level, but don't stray too far behind!
 ";
                 textdisplay.UpdateText();
-                //never outshine the master
+                //DONE
                 break;
             case 2:
                 idealRange = 0f;
@@ -95,6 +95,7 @@ Make sure to stay below the master's performance level, but don't stray too far 
 <b>CRUSH YOUR ENEMY TOTALLY</b>
 Every button you press decreases your opponents power, so let loose!
 ";
+                textdisplay.UpdateText();
                 //crush your enemy totally -> every input deducts x power from your opponent, keyboardsmash (player gains no points)
                 break;
             case 3:
@@ -106,7 +107,8 @@ Every button you press decreases your opponents power, so let loose!
 <b>PLAY A SUCKER TO CATCH A SUCKER</b>
 Play dumb to win big, less is more when it comes to performance level.
 ";
-                // play a sucker to catch a sucker -> points are reversed (bad is good)
+                textdisplay.UpdateText();
+                // DONE play a sucker to catch a sucker -> points are reversed (bad is good) 
                 break;
             case 4:
                 idealRange = 0f;
@@ -119,6 +121,7 @@ Play dumb to win big, less is more when it comes to performance level.
 <b>MAKE YOUR ACCOMPLISHMENTS SEEM EFFORTLESS</b>
 Stay ahead of your opponent and also close your eyes lol
 ";
+                textdisplay.UpdateText();
                 // make your accomplishments seem effortless -> arrows are spawned only half as often
                 break;
             case 5:
@@ -131,10 +134,11 @@ Stay ahead of your opponent and also close your eyes lol
 <b>MASTER THE ART OF TIMING</b>
 I think this one is pretty obvious (play perfectly)
 ";
+                textdisplay.UpdateText();
                 // master the art of timing -> maybe it should deduct power for every wrong input
                 break;
             case 6:
-                idealRange = opponentScore.currentPos;
+                idealRange = opponentScore.performanceMeter.transform.position.y +0.5f;
                 _top = 0.1f;
                 _bottom = 0.1f;
                 
@@ -142,6 +146,7 @@ I think this one is pretty obvious (play perfectly)
 <b>INFURIATE WITH THE MIRROR EFFECT</b>
 Copy your opponents moves as closely as possible.
 ";
+                textdisplay.UpdateText();
                 // disarm and infuriate with the mirror effect
                 break;
             case 7:
@@ -153,6 +158,7 @@ Copy your opponents moves as closely as possible.
 <b>NEVER APPEAR TOO PERFECT</b>
 Aim for near-perfection!
 ";
+                textdisplay.UpdateText();
                 // never appear too perfect
                 break;
             case 8:
@@ -165,6 +171,7 @@ Aim for near-perfection!
 <b>LEARN WHEN TO STOP</b>
 ...it's now.
 ";
+                textdisplay.UpdateText();
                 // don't go past the mark you aimed for in victory, learn when to stop -> any input during this rule lowers score, this rule should last less long? 
                 break;
             case 9:
@@ -174,15 +181,15 @@ Aim for near-perfection!
 <b>PLAN ALL THE WAY TO THE END</b>
 I'm too tired to come up with flavortext, the arrows disappear lol
 ";
+                textdisplay.UpdateText();
                 // plan all the way to the end -> arrows have a random direction
                 break;
             default:
                 //no rule
                 break;
                 
-        }/*
-        Debug.Log(idealRange);*/
-
+        }
+Debug.Log(idealRange);
     }
 
     
